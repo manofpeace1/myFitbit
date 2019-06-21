@@ -8,7 +8,7 @@ def run():
     fitbit_api.get_food()
     fitbit_api.get_water()
 
-    print(f"""
+    result = f"""
     Today's Summary ({datetime.date.today()})
 
     🛌 {fitbit_api.sleep_result}
@@ -16,7 +16,9 @@ def run():
     🍔 {fitbit_api.food_result}
 
     💧 {fitbit_api.water_result}
-    """)
+    """
+
+    print(result)
 
 
 run()
