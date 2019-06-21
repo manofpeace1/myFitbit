@@ -1,7 +1,6 @@
 import config
 import fitbit
 import gather_keys_oauth2 as Oauth2
-import pandas as pd
 
 
 def authorization():
@@ -16,20 +15,6 @@ def authorization():
     global auth2_client
     auth2_client = fitbit.Fitbit(CLIENT_ID, CLIENT_SECRET, oauth2=True,
                                  access_token=ACCESS_TOKEN, refresh_token=REFRESH_TOKEN)
-
-
-def get_heart_rate():
-    heart_rate = auth2_client.intraday_time_series(
-        'activities/heart', base_date='2019-05-29', detail_level='15min')
-
-    time_list = []
-    val_list = []
-    for i in heart_rate['activities-heart-intraday']['dataset']:
-        val_list.append(i['value'])
-        time_list.append(i['time'])
-    global heartdf
-    heartdf = pd.DataFrame({'Heart Rate': val_list, 'Time': time_list})
-    print(heartdf)
 
 
 def get_sleep():
