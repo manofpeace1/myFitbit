@@ -1,24 +1,9 @@
-import config
 import fitbit
-import gather_keys_oauth2 as Oauth2
-
-
-def authorization():
-    CLIENT_ID = config.CLIENT_ID
-    CLIENT_SECRET = config.CLIENT_SECRET
-
-    server = Oauth2.OAuth2Server(CLIENT_ID, CLIENT_SECRET)
-    server.browser_authorize()
-    ACCESS_TOKEN = str(server.fitbit.client.session.token['access_token'])
-    REFRESH_TOKEN = str(server.fitbit.client.session.token['refresh_token'])
-
-    global auth2_client
-    auth2_client = fitbit.Fitbit(CLIENT_ID, CLIENT_SECRET, oauth2=True,
-                                 access_token=ACCESS_TOKEN, refresh_token=REFRESH_TOKEN)
+import fitbit_auth
 
 
 def get_sleep():
-    sleep_log = auth2_client.sleep(
+    sleep_log = fitbit_auth.auth2_client.sleep(
         date=None, user_id=None, data=None)
 
     def sleep_start_end(
@@ -34,7 +19,7 @@ def get_sleep():
 
 
 def get_food():
-    food_log = auth2_client.foods_log(
+    food_log = fitbit_auth.auth2_client.foods_log(
         date=None, user_id=None, data=None)
     food_calorie_limit = food_log['goals']['estimatedCaloriesOut']
     food_calorie_goal = food_log['goals']['calories']
@@ -48,7 +33,7 @@ def get_food():
 
 
 def get_water():
-    water_log = auth2_client.foods_log_water(
+    water_log = fitbit_auth.auth2_client.foods_log_water(
         date=None, user_id=None, data=None)
     water_goal = 1900
     water_total = water_log['summary']['water'] * \
@@ -57,3 +42,10 @@ def get_water():
     global water_result
     water_result = f"""You should drink {int(water_goal - water_total)}ml more.
     | consumed: {int(water_total)}ml"""
+
+
+def search_food(food_name):
+    # Useful when creating new food input
+    global food
+    food = fitbit_auth.auth2_client.search_foods(food_name)
+    print(food)
