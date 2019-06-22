@@ -24,24 +24,27 @@ def show_summary():
 def log_start(item, log_type):
 
     while True:
-        if item in ['food', 'water']:
-            if item == 'food':
-                user_input = input(f"\n{food_icon} Log Food (Calories) >>> ")
-            elif item == 'water':
-                user_input = input(f"\n{water_icon} Log Water (ml) >>> ")
-            try:
-                if int(user_input) > 0:
-                    log_type(int(user_input))
-                    break
-                elif int(user_input) == 0:
-                    pass
-                    break
-            except ValueError:
-                print('Invalid input.')
-        elif item in ['sleep']:
-            user_input = input(f"\n{sleep_icon} Log Sleep (hour,HH:mm) >>> ")
-            log_type(user_input)
-            break
+        if item == 'food':
+            int_input = input(f"\n{food_icon} Log Food (Calories) >>> ")
+        elif item == 'water':
+            int_input = input(f"\n{water_icon} Log Water (ml) >>> ")
+        elif item == 'sleep':
+            int_input = -1
+            sleep_user_input = input(
+                f"\n{sleep_icon} Log Sleep (hour,HH:mm) >>> ")
+
+        try:
+            if int(int_input) > 0:
+                log_type(int(int_input))
+                break
+            elif int(int_input) == 0:
+                pass
+                break
+            elif len(sleep_user_input.split(",")) > 1:
+                log_type(sleep_user_input)
+                break
+        except ValueError:
+            print('Invalid input.')
 
 
 def run():
