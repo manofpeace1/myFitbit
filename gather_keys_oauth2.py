@@ -14,9 +14,16 @@ class OAuth2Server:
     def __init__(self, client_id, client_secret,
                  redirect_uri='http://127.0.0.1:8080/'):
         """ Initialize the FitbitOauth2Client """
+
+        # document.getElementById("body").style.color = "#ffffff";
+        # document.getElementById("body").style.backgroundColor = "#000000";
+
         self.success_html = """
-            <h1>You are now authorized to access the Fitbit API!</h1>
-            <br/><h3>You can close this window</h3>"""
+            <body bgcolor="#363636">
+            <font face="Helvetica" color="grey">
+            <h1>[SUCCESS]</h1><br/>
+            <h2>You are now authorized to access the Fitbit API.<br/>
+            You can close this window.</h2></font></body>"""
         self.failure_html = """
             <h1>ERROR: %s</h1><br/><h3>You can close this window</h3>%s"""
 
