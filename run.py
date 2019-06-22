@@ -1,7 +1,7 @@
 from fitbit_auth import authorization
+from datetime import date
 import fitbit_get
 import fitbit_post
-import datetime
 
 sleep_icon = '🛌'
 food_icon = '🍔'
@@ -10,7 +10,7 @@ water_icon = '💧'
 
 def show_summary():
     summary = f"""
-    Today's Summary ({datetime.date.today()})
+    Today's Summary ({date.today()})
 
     {sleep_icon} {fitbit_get.sleep_result}
 
