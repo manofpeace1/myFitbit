@@ -15,9 +15,6 @@ class OAuth2Server:
                  redirect_uri='http://127.0.0.1:8080/'):
         """ Initialize the FitbitOauth2Client """
 
-        # document.getElementById("body").style.color = "#ffffff";
-        # document.getElementById("body").style.backgroundColor = "#000000";
-
         self.success_html = """
             <body bgcolor="#363636">
             <font face="Helvetica" color="grey">
