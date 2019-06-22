@@ -6,14 +6,16 @@ def get_sleep():
     sleep_log = fitbit_auth.auth2_client.sleep(
         date=None, user_id=None, data=None)
 
-    def sleep_start_end(
-        key): return sleep_log['sleep'][0][key].split("T")[1][0:5]
-    sleep_start = sleep_start_end('startTime')
-    sleep_end = sleep_start_end('endTime')
-    sleep_length = sleep_log['summary']['totalTimeInBed'] / 60
-
     global sleep_result
-    sleep_result = f"""You slept {int(sleep_length)} hours.
+    if len(sleep_log['sleep']) == 0:
+        sleep_result = 'Sleep log not found.'
+    else:
+        def sleep_start_end(
+            key): return sleep_log['sleep'][0][key].split("T")[1][0:5]
+        sleep_start = sleep_start_end('startTime')
+        sleep_end = sleep_start_end('endTime')
+        sleep_length = sleep_log['summary']['totalTimeInBed'] / 60
+        sleep_result = f"""You slept {int(sleep_length)} hours.
     | slept: {sleep_start}
     | wokeup: {sleep_end}"""
 
