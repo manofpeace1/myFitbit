@@ -22,7 +22,6 @@ def show_summary():
 
 
 def log_start(item, log_type):
-
     while True:
         if item == 'food':
             int_input = input(f"\n{food_icon} Log Food (Calories) >>> ")
@@ -40,7 +39,7 @@ def log_start(item, log_type):
             elif int(int_input) == 0:
                 pass
                 break
-            elif len(sleep_user_input.split(",")) > 1:
+            elif len(sleep_user_input.split(",")) == 2:
                 log_type(sleep_user_input)
                 break
         except ValueError:
@@ -59,6 +58,14 @@ def run():
     log_start('food', fitbit_post.log_food)
     log_start('water', fitbit_post.log_water)
     log_start('sleep', fitbit_post.log_sleep)
+
+
+def run_test():
+    authorization()
+    fitbit_post.post_request_prepare()
+
+    fitbit_get.get_food_30days()
+    # show_summary()
 
 
 run()

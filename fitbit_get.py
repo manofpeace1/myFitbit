@@ -1,5 +1,11 @@
 import fitbit
 import fitbit_auth
+from datetime import date, timedelta
+
+
+def days_ago(num):
+    global days_ago_date
+    days_ago_date = date.today() - timedelta(days=num)
 
 
 def get_sleep():
@@ -32,6 +38,22 @@ def get_food():
     | limit: {food_calorie_limit}
     | goal: {food_calorie_goal} ({food_calorie_goal - food_calorie_limit})
     | consumed: {food_calorie_intake}"""
+
+
+def get_food_30days():
+    global food_30days_result
+    food_30days_result = []
+
+    i = 0
+    while i < 30:
+        i += 1
+        days_ago(i)
+        food_log = fitbit_auth.auth2_client.foods_log(
+            date=days_ago_date, user_id=None, data=None)
+        food_calorie_goal = food_log['goals']['calories']
+        food_calorie_intake = food_log['summary']['calories']
+        food_30days_result.append(
+            f"{days_ago_date},{food_calorie_goal},{food_calorie_intake}")
 
 
 def get_water():

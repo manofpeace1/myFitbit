@@ -19,7 +19,7 @@ def post_request_send(url):
                                  headers=headers
                                  )
     print(f'response code: {post_request.status_code}\n')
-    # print(post_request.json())
+    print(post_request.json())
 
 
 def log_food(calorie):
@@ -46,8 +46,8 @@ def log_sleep(duration_startTime):
     duration = duration_startTime.split(",")[0]
     startTime = duration_startTime.split(",")[1]
     api_version = 1.2
-    duration_millisec = int(duration) * 3600000
+    duration_millisec = float(duration) * 3600000
 
-    log_sleep_url = f'{endpoint}/{api_version}/user/-/sleep.json?startTime={startTime}&duration={duration_millisec}&date={date_today}'
+    log_sleep_url = f'{endpoint}/{api_version}/user/-/sleep.json?startTime={startTime}&duration={int(duration_millisec)}&date={date_today}'
 
     post_request_send(log_sleep_url)
