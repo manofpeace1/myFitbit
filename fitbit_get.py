@@ -21,7 +21,7 @@ def get_sleep():
         sleep_start = sleep_start_end('startTime')
         sleep_end = sleep_start_end('endTime')
         sleep_length = sleep_log['summary']['totalTimeInBed'] / 60
-        sleep_result = f"""You slept {int(sleep_length)} hours.
+        sleep_result = f"""You slept {float(sleep_length)} hours.
     | slept: {sleep_start}
     | wokeup: {sleep_end}"""
 
