@@ -19,7 +19,7 @@ def post_request_send(url):
                                  headers=headers
                                  )
     print(f'response code: {post_request.status_code}\n')
-    print(post_request.json())
+    # print(post_request.json())
 
 
 def log_food(calorie):
